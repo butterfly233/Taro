@@ -1,0 +1,60 @@
+@import "../../assets/less/variables.less";
+
+@top-height: 90rpx;
+
+.scroll-view {
+  width: 100%;
+  height: @top-height;
+  overflow: hidden;
+}
+
+.tabs-wrap {
+  padding-bottom: 20rpx;
+}
+
+.tabs {
+  position: relative;
+  height: @top-height;
+  color: @black3;
+  display: flex;
+
+  .tabs__item {
+    flex: 1;
+    text-align: center;
+    height: @top-height;
+    line-height: @top-height;
+    padding: 0 10rpx;
+    box-sizing: border-box;
+    transition: color 0.3s ease-in-out;
+  }
+}
+
+.tabs--scroll {
+  white-space: nowrap;
+  display: block;
+
+  .tabs__item {
+    flex: initial !important;
+    text-align: initial !important;
+    display: inline-block !important;
+    padding: 0 30rpx;
+  }
+}
+
+.tabs__item--cur {
+  color: @black1;
+}
+
+.tabs__line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background-color: @theme-color;
+  height: 4rpx;
+  width: 0rpx;
+  display: inline-block;
+
+  &.transition {
+    transition: width 0.3s, transform 0.3s;
+  }
+}

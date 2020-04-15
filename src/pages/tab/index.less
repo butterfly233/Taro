@@ -1,0 +1,38 @@
+@import "../../assets/less/variables";
+
+.container {
+  min-height: 100vh;
+  background: #f5f5f8;
+  font-size: 24px;
+}
+
+.tab-wrap {
+  background: #ffffff;
+  margin-bottom: 40rpx;
+}
+
+.control-panel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx;
+  background: #ffffff;
+  box-sizing: border-box;
+  border-top: 1rpx solid @line-color;
+  z-index: 12213;
+
+
+  &.isX {
+    padding-bottom: 60rpx;
+  }
+}
+
+.panel-item {
+  display: flex;
+  align-items: center;
+
+  .panel-item__bd {
+    flex: 1;
+  }
+}
