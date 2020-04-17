@@ -77,7 +77,6 @@ class Index extends Taro.Component<IProps> {
   }
 
   componentWillReceiveProps(nextProps: IProps) {
-    console.log(this.props.requesting, nextProps.requesting);
     const { requesting, refreshSize } = nextProps;
     if (this.props.requesting !== requesting) {
       this.requestingEnd(this.props.requesting, requesting);

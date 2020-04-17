@@ -31,6 +31,9 @@ class App extends Component {
       'pages/scroll/index',
       'pages/indexList/index',
       'pages/tab/index',
+      'pages/swipAction/index',
+      'pages/listCalendar/index',
+      'pages/calendar/index',
     ],
     window: {
       backgroundTextStyle: 'light',
