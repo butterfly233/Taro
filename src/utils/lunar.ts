@@ -239,7 +239,7 @@ export const calendar = {
    * @return Cn string
    */
   toAstro: function (cMonth, cDay) {
-    let s = "\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf";
+    let s: string = "\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf";
     let arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22];
     return s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2) + "\u5ea7";//座
   },
@@ -260,14 +260,14 @@ export const calendar = {
   getTerm: function (y, n) {
     if (y < 1900 || y > 2100) { return -1; }
     if (n < 1 || n > 24) { return -1; }
-    let _table = calendar.sTermInfo[y - 1900];
+    let _table: string = calendar.sTermInfo[y - 1900] || "";
     let _info = [
-      parseInt('0x' + _table.substr(0, 5)).toString(),
-      parseInt('0x' + _table.substr(5, 5)).toString(),
-      parseInt('0x' + _table.substr(10, 5)).toString(),
-      parseInt('0x' + _table.substr(15, 5)).toString(),
-      parseInt('0x' + _table.substr(20, 5)).toString(),
-      parseInt('0x' + _table.substr(25, 5)).toString()
+      parseInt(`0x${_table.substr(0, 5)}`).toString(),
+      parseInt(`0x${_table.substr(5, 5)}`).toString(),
+      parseInt(`0x${_table.substr(10, 5)}`).toString(),
+      parseInt(`0x${_table.substr(15, 5)}`).toString(),
+      parseInt(`0x${_table.substr(20, 5)}`).toString(),
+      parseInt(`0x${_table.substr(25, 5)}`).toString()
     ];
     let _calday = [
       _info[0].substr(0, 1),
@@ -435,7 +435,7 @@ export const calendar = {
    * @return JSON object
    * @eg:console.log(calendar.lunar2solar(1987,9,10));
    */
-  lunar2solar: function (y, m, d, LeapMonth) {  //参数区间1900.1.31~2100.12.1
+  lunar2solar: function (y, m, d, LeapMonth = false) {  //参数区间1900.1.31~2100.12.1
     let isLeapMonth = !!LeapMonth;
     let leapMonth = calendar.leapMonth(y);
     if (isLeapMonth && (leapMonth != m)) { return -1; }//传参要求计算该闰月公历 但该年得出的闰月与传参的月份并不同

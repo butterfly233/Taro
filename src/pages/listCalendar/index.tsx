@@ -19,13 +19,6 @@ class Index extends Taro.Component {
     const { defaultDate, type, months } = this.state;
     return (
       <ScrollView scrollY className="container">
-        {/* <View className="control-panel">
-          <Image mode="aspectFill" src={yearLeftArrow} />
-          <Image mode="aspectFill" src={monthLeftArrow} />
-          <Text className="date">{defaultDate}</Text>
-          <Image mode="aspectFill" src={monthRightArrow} />
-          <Image mode="aspectFill" src={yearRightArrow} />
-        </View> */}
         <Calendar
           months={months}
           defaultDate={defaultDate}
