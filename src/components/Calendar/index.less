@@ -43,13 +43,16 @@ page {
 
 .row {
   .flex(space-between);
-  height: 90px;
+  align-items: stretch;
+  height: 100px;
 
   .item {
-    flex: 1;
+    flex: 0 0 100px;
+    padding: 10px 0;
     text-align: center;
     font-size: 24px;
     color: #333333;
+    box-sizing: border-box;
 
     &.gray {
       color: #aaaaaa;

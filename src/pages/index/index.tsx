@@ -1,25 +1,22 @@
 import Taro, { Component, Config } from "@tarojs/taro";
-import { View, Button, Text } from "@tarojs/components";
-import { observer, inject } from "@tarojs/mobx";
-import { urlMap } from "@/utils/config";
+import { View, Image } from "@tarojs/components";
 
+import listIcon from "@/assets/image/main/list.png";
+import indexListIcon from "@/assets/image/main/index-list.png";
+import TabIcon from "@/assets/image/main/drag.png";
+import slipIcon from "@/assets/image/main/side-slip.png";
+import calendar1Icon from "@/assets/image/main/date.png";
+import calendar2Icon from "@/assets/image/main/rili.png";
 import "./index.less";
 
-type PageStateProps = {
-  counterStore: {
-    counter: number;
-    increment: Function;
-    decrement: Function;
-    incrementAsync: Function;
-  };
-};
-
-interface Index {
-  props: PageStateProps;
-}
-
-@inject("counterStore")
-@observer
+const UrlMap: any[] = [
+  { name: "下拉刷新", "page": "/pages/scroll/index", icon: listIcon },
+  { name: "城市索引", "page": "/pages/indexList/index", icon: indexListIcon },
+  { name: "Tab标签页", "page": "/pages/tab/index", icon: TabIcon },
+  { name: "侧滑", "page": "/pages/swipAction/index", icon: slipIcon },
+  { name: "列表日历", "page": "/pages/listCalendar/index", icon: calendar1Icon },
+  { name: "横向日历", "page": "/pages/calendar/index", icon: calendar2Icon },
+]
 class Index extends Component {
   /**
    * 指定config的类型声明为: Taro.Config
@@ -29,37 +26,20 @@ class Index extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: "首页",
+    navigationBarTitleText: "Taro组件",
   };
 
-  componentWillMount() {}
+  componentWillMount() { }
 
-  componentWillReact() {
-    console.log("componentWillReact");
-  }
+  componentWillReact() { }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
-  componentDidShow() {}
+  componentDidShow() { }
 
-  componentDidHide() {}
-
-  increment = () => {
-    const { counterStore } = this.props;
-    counterStore.increment();
-  };
-
-  decrement = () => {
-    const { counterStore } = this.props;
-    counterStore.decrement();
-  };
-
-  incrementAsync = () => {
-    const { counterStore } = this.props;
-    counterStore.incrementAsync();
-  };
+  componentDidHide() { }
 
   jumpPage = (url: string) => {
     if (!url) return;
@@ -67,18 +47,12 @@ class Index extends Component {
   };
 
   render() {
-    const {
-      counterStore: { counter },
-    } = this.props;
     return (
-      <View className="index">
-        <View onClick={this.jumpPage.bind(this, urlMap["scroll"])}>
-          下拉刷新
-        </View>
-        <Button onClick={this.increment}>+</Button>
-        <Button onClick={this.decrement}>-</Button>
-        <Button onClick={this.incrementAsync}>Add Async</Button>
-        <Text>{counter}</Text>
+      <View className="container">
+        {UrlMap.map((item: any) => <View className="panel" key="name" onClick={this.jumpPage.bind(this, item.page)}>
+          <Image src={item.icon} mode="aspectFit" className="img" />
+          {item.name}
+        </View>)}
       </View>
     );
   }
