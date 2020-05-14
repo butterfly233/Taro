@@ -9,7 +9,7 @@ import "./index.less";
 @observer
 class Index extends Taro.Component {
 
-  componentWillMount(){
+  componentWillMount() {
     Model.getList();
   }
 
@@ -27,23 +27,13 @@ class Index extends Taro.Component {
     });
   };
 
-  singleSelect = (e) => {
-    console.log(e);
-    // let { data } = this.state;
-    // data.map((item: any, key: number) => {
-    //   if (index === key) {
-    //     item.isOpened = true;
-    //   }
-    //   else item.isOpened = false;
-    //   return item;
-    // })
-    // this.setState({ data });
+  singleSelect = (id: any) => {
+    Model.selectItem(id)
   }
 
-  cancleSelect = (e) => {
-    console.log(e);
+  cancleSelect = (id: any) => {
+    Model.cancelSelect(id)
   }
-
 
   delete = (id: any) => {
     Model.deleteList(id);
@@ -51,13 +41,15 @@ class Index extends Taro.Component {
 
   render() {
     const data = toJS(Model.list);
-    
+    console.log(Model.isEmpty)
+
     return (
       <ScrollView scrollY className="cells">
         {data.map((item: any, index: number) =>
           <View
             className="container"
             key='id'
+            style={{ display: item.display }}
           >
             <SwipAction
               swipid={item.id}

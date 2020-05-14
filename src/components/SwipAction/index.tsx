@@ -39,7 +39,7 @@ class Index extends Taro.Component<IProps> {
 
   componentWillReceiveProps(nextProps: IProps) {
     const { isOpened } = nextProps;
-    if (isOpened !== this.props.isOpened && !isOpened) {
+    if (!isOpened) {
       this.open = false;
       this.setState({ move: 0 });
     }
@@ -89,13 +89,13 @@ class Index extends Taro.Component<IProps> {
   };
 
   handleOpened = (e) => {
-    if (!this.open) {
+    if (this.open) {
       this.props.onOpened(this.props.swipid);
     }
   }
 
   handleClosed = (e) => {
-    if (this.open) {
+    if (!this.open) {
       this.props.onClosed(this.props.swipid);
     }
   }
