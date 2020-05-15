@@ -40,8 +40,8 @@ class Index extends Taro.Component<IProps> {
   componentWillReceiveProps(nextProps: IProps) {
     const { isOpened } = nextProps;
     if (!isOpened) {
-      this.open = false;
-      this.setState({ move: 0 });
+      this._reset();
+      this.props.onClosed(this.props.swipid);
     }
   }
 
@@ -61,6 +61,7 @@ class Index extends Taro.Component<IProps> {
       })
     } else {
       this.open = false;
+      this.diff = 0;
       this.setState({ move: 0 })
     }
   }
@@ -104,6 +105,7 @@ class Index extends Taro.Component<IProps> {
    * movable-view 触摸结束事件
    */
   touchend = (e) => {
+    if(!this.isTouching) return;
     let { diff, deleteBtnWidth, open } = this;
     this.isTouching = false;
     if ((!open && diff < -15) || (open && diff <= -deleteBtnWidth + 10)) {
@@ -115,6 +117,11 @@ class Index extends Taro.Component<IProps> {
       this.handleClosed(e)
     }, 500)
   };
+
+  handleClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+  }
 
   render() {
     const { move, componentId } = this.state;
@@ -132,6 +139,7 @@ class Index extends Taro.Component<IProps> {
           friction={20}
           x={move}
           animation
+          onClick={this.handleClick}
         >
           <View className="side__con">{this.props.children}</View>
           <View

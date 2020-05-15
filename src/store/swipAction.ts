@@ -1,4 +1,4 @@
-import { observable, action, computed } from "mobx";
+import { observable, action, computed, toJS } from "mobx";
 import { testData } from "@/assets/common/data";
 import Taro from "@tarojs/taro";
 
@@ -27,14 +27,15 @@ class SwipActionStore {
   @action
   selectItem = (id: any) => {
     const index: number = this.list.findIndex((item) => item.id === id);
-    if (index !== -1)
+    if (index !== -1) {
       this.list = this.list.map((item, key) => {
         if (key === index) {
           item.isOpened = true;
         }
         else item.isOpened = false;
         return item;
-      })
+      });
+    }
   }
 
   @action
@@ -42,6 +43,18 @@ class SwipActionStore {
     const index: number = this.list.findIndex((item) => item.id === id);
     if (index !== -1)
       this.list[index].isOpened = false;
+  }
+
+  @action
+  resetList = () => {
+    const hasOpened = this.list.some((item) => item.isOpened === true);
+    if (hasOpened) {
+      this.list = this.list.map((item) => {
+        item.isOpened = false;
+        return item;
+      })
+    }
+    else return;
   }
 }
 

@@ -39,12 +39,15 @@ class Index extends Taro.Component {
     Model.deleteList(id);
   };
 
+  scroll = () =>{
+    Model.resetList()
+  }
+
   render() {
     const data = toJS(Model.list);
-    console.log(Model.isEmpty)
 
     return (
-      <ScrollView scrollY className="cells">
+      <ScrollView scrollY className="cells" onScroll={this.scroll}>
         {data.map((item: any, index: number) =>
           <View
             className="container"
