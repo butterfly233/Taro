@@ -1,8 +1,7 @@
 import Taro, { Component, Config } from '@tarojs/taro'
 import { Provider } from '@tarojs/mobx'
 import Index from './pages/index'
-
-import counterStore from './store/counter'
+import globalStore from './store/global'
 
 import './app.less'
 
@@ -13,7 +12,7 @@ import './app.less'
 // }
 
 const store = {
-  counterStore
+  globalStore
 }
 
 class App extends Component {
@@ -39,21 +38,25 @@ class App extends Component {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
       navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarTextStyle: 'black',
+      navigationStyle: 'custom',
+      backgroundColor: '#fff',
     }
   }
 
-  componentDidMount () {}
+  componentDidMount() {
+    globalStore.getNavHeight();
+  }
 
-  componentDidShow () {}
+  componentDidShow() { }
 
-  componentDidHide () {}
+  componentDidHide() { }
 
-  componentDidCatchError () {}
+  componentDidCatchError() { }
 
   // 在 App 类中的 render() 函数没有实际作用
   // 请勿修改此函数
-  render () {
+  render() {
     return (
       <Provider store={store}>
         <Index />

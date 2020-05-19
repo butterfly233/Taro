@@ -58,6 +58,7 @@ class Index extends Taro.Component {
   };
 
   componentWillMount() {
+    console.log(this.$router)
     //判断机型(适配iphoneX)
     Taro.getSystemInfo().then((res) => {
       if (res.model.search("iPhone X") !== -1) {

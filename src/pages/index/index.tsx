@@ -1,6 +1,6 @@
 import Taro, { Component, Config } from "@tarojs/taro";
 import { View, Image } from "@tarojs/components";
-
+import NavBar from '@/components/navbar/index';
 import listIcon from "@/assets/image/main/list.png";
 import indexListIcon from "@/assets/image/main/index-list.png";
 import TabIcon from "@/assets/image/main/drag.png";
@@ -8,6 +8,7 @@ import slipIcon from "@/assets/image/main/side-slip.png";
 import calendar1Icon from "@/assets/image/main/date.png";
 import calendar2Icon from "@/assets/image/main/rili.png";
 import "./index.less";
+import { inject } from "@tarojs/mobx";
 
 const UrlMap: any[] = [
   { name: "下拉刷新", "page": "/pages/scroll/index", icon: listIcon },
@@ -17,7 +18,9 @@ const UrlMap: any[] = [
   { name: "列表日历", "page": "/pages/listCalendar/index", icon: calendar1Icon },
   { name: "横向日历", "page": "/pages/calendar/index", icon: calendar2Icon },
 ]
-class Index extends Component {
+
+@inject('globalStore')
+class Index extends Component<any> {
   /**
    * 指定config的类型声明为: Taro.Config
    *
@@ -26,7 +29,7 @@ class Index extends Component {
    * 提示和声明 navigationBarTextStyle: 'black' | 'white' 类型冲突, 需要显示声明类型
    */
   config: Config = {
-    navigationBarTitleText: "Taro组件",
+    navigationBarTitleText: "Taro组件"
   };
 
   componentWillMount() { }
@@ -47,8 +50,10 @@ class Index extends Component {
   };
 
   render() {
+    const { navHeight } = this.props.globalStore;
     return (
-      <View className="container">
+      <View className="container" style={{ paddingTop: `${navHeight}px` }}>
+        <NavBar />
         {UrlMap.map((item: any) => <View className="panel" key="name" onClick={this.jumpPage.bind(this, item.page)}>
           <Image src={item.icon} mode="aspectFit" className="img" />
           {item.name}
