@@ -32,9 +32,17 @@ const monthsMap: string[] = [
 
 interface IProps {
   defaultDate?: string;
+  formate?: string,
+  onDateClick?: Function;
 }
 
 class Index extends Taro.Component<IProps> {
+  static defaultProps = {
+    defaultDate: today.date,
+    formate: 'YYYY-MM-DD',
+    onDateClick: () => { }
+  }
+
   state = {
     date: "", // 当前日期
     listDate: [], // 当月所有天数
@@ -77,8 +85,9 @@ class Index extends Taro.Component<IProps> {
           date.getMonth() + 1,
           day
         );
+        const formateDate = moment(date).format(this.props.formate)
         col.push({
-          date,
+          date: formateDate,
           time: date.getTime(),
           day,
           lunar: lunarObj.IDayCn,
@@ -102,6 +111,9 @@ class Index extends Taro.Component<IProps> {
   clickDate = (e) => {
     const { time } = e.currentTarget.dataset;
     this.setState({ selectTime: time });
+    if (this.props.onDateClick) {
+      this.props.onDateClick(e)
+    }
   };
 
   render() {
@@ -146,9 +158,10 @@ class Index extends Taro.Component<IProps> {
                 <View
                   className={`item ${idate.currentMonth ? "" : "gray"} ${
                     idate.isToday ? "today" : ""
-                  } ${selectTime === idate.time ? "current" : ""}`}
+                    } ${selectTime === idate.time ? "current" : ""}`}
                   key={index}
                   data-time={idate.time}
+                  data-date={idate.date}
                   onClick={this.clickDate}
                 >
                   <Text className="date">{idate.day}</Text>

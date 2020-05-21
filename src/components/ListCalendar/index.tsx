@@ -39,7 +39,7 @@ export default class Index extends Component<IProps, any> {
     type: "date",
     months: 1,
     defaultDate: today,
-    onClick: () => {},
+    onClick: () => { },
   };
 
   state: IState = {
@@ -74,7 +74,7 @@ export default class Index extends Component<IProps, any> {
     this.createDateList();
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   /** 日期变量 */
   defaultTime: number[] | number;
@@ -157,13 +157,15 @@ export default class Index extends Component<IProps, any> {
     let { dateList, selectTime } = this.state;
     //当前选择的日期为同一个月并小于今天，或者点击了空白处（即day<0），不执行
     if (time < this.todayTime || !time) return;
-    if (type !== "date") {
+    if (type !== "date") { // 范围选择
       // 范围选择
       if (selectTime[1]) selectTime = []; // 清空之前的选择范围
       if (time == selectTime[0]) return;
-      else if (!selectTime[0] || (selectTime[0] && time < selectTime[0]))
+      else if (!selectTime[0]) { selectTime[0] = time }
+      else if (selectTime[0] && time < selectTime[0]) { // 小的日期为开始日期，大的日期为结束日期
+        selectTime[1] = selectTime[0];
         selectTime[0] = time;
-      // 未选择开始日期或者选择结束日期小于开始日期
+      }
       else selectTime[1] = time;
     } else {
       selectTime = time;

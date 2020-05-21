@@ -1,26 +1,23 @@
 @import "../../assets/less/variables.less";
 
-page {
-  padding-top: 100rpx;
-}
-
 .search {
-  position: fixed;
-  padding: 20rpx;
-  background: #ffffff;
+  position: sticky;
+  position: -webkit-sticky;
   top: 0;
   left: 0;
   right: 0;
+  padding: 20px;
   display: flex;
   align-items: center;
+  background: #ffffff;
 
   .hd {
     font-size: 0;
 
     Image {
-      width: 36rpx;
-      height: 36rpx;
-      margin-right: 20rpx;
+      margin-right: 20px;
+      width: 36px;
+      height: 36px;
     }
   }
 
@@ -29,21 +26,22 @@ page {
 
     Input {
       width: 100%;
-      height: 60rpx;
-      border-radius: 10rpx;
+      height: 60px;
+      border-radius: 10px;
       box-sizing: border-box;
     }
   }
 
   .ft {
+    margin: -30px;
+    padding: 30px;
     font-size: 0;
-    padding: 30rpx;
-    margin: -30rpx;
+
 
     Image {
-      width: 36rpx;
-      height: 36rpx;
-      margin-left: 20rpx;
+      width: 36px;
+      height: 36px;
+      margin-left: 20px;
     }
   }
 }

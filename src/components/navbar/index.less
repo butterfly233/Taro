@@ -33,6 +33,8 @@
 }
 
 .nav {
+  position: relative;
+  width: 100%;
   height: 100%;
 
   .search_box {
@@ -47,11 +49,18 @@
   }
 
   .title {
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    max-width: 400px;
     line-height: 2.4;
+    text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    position: absolute;
   }
 }

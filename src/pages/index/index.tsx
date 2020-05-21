@@ -53,7 +53,7 @@ class Index extends Component<any> {
     const { navHeight } = this.props.globalStore;
     return (
       <View className="container" style={{ paddingTop: `${navHeight}px` }}>
-        <NavBar />
+        <NavBar showBack={false} showSearch={true} />
         {UrlMap.map((item: any) => <View className="panel" key="name" onClick={this.jumpPage.bind(this, item.page)}>
           <Image src={item.icon} mode="aspectFit" className="img" />
           {item.name}

@@ -4,10 +4,10 @@
   color: #222;
   text-align: center;
   background: #fff;
-  overflow: hidden;
 
   .weeks {
-    position: fixed;
+    position: sticky;
+    position: -webkit-sticky;
     top: 0;
     width: 100%;
     border-bottom: 1px solid #e5e5e5;
@@ -23,15 +23,12 @@
   }
 
   .days {
-    padding-top: 90px;
+    padding-top: 20px;
 
     .panel {
-      &+.panel {
-        margin-top: 40px;
-      }
 
       .header {
-        padding: 20px 0;
+        padding: 30px 0;
         border-bottom: 1px solid #e5e5e5;
         font-size: 32px;
       }

@@ -1,9 +1,12 @@
 import Taro from "@tarojs/taro";
 import { View, Slider, Label, Radio, RadioGroup } from "@tarojs/components";
 import Tab from "@/components/tab";
-
+import NavBar from "@/components/navbar";
+import { inject } from "@tarojs/mobx";
 import "./index.less"
 
+
+@inject('globalStore')
 class Index extends Taro.Component<any> {
   state = {
     isIphoneX: false,
@@ -72,8 +75,10 @@ class Index extends Taro.Component<any> {
       color,
       items,
     } = this.state;
+    const { navHeight } = this.props.globalStore;
     return (
-      <View className="container">
+      <View className="container" style={{ paddingTop: `${navHeight}px` }}>
+        <NavBar title='tab标签页' showSearch={false} showBack={true} />
         <View className="tab-wrap">
           <Tab
             tabCur={tabCur1}

@@ -42,7 +42,7 @@ interface IProps {
 
 @observer
 class Index extends Taro.Component<IProps> {
-  staticProps = {
+  static defaultProps = {
     requesting: false,
     end: false,
     emptyShow: false,
@@ -54,8 +54,8 @@ class Index extends Taro.Component<IProps> {
     bottomSize: 0,
     color: "",
     enableBackToTop: false,
-    refresh: () => {},
-    more: () => {},
+    refresh: () => { },
+    more: () => { },
   };
 
   state = {
@@ -68,6 +68,8 @@ class Index extends Taro.Component<IProps> {
     overOnePage: false,
   };
 
+  isTouching: boolean = false; // refresh 用户拉动高度
+  diff: number = 0; // refresh 用户拉动高度
   scrollHeight1: number = 0; // refresh view 高度负值
   scrollHeight2: number = 0; // refresh view - success view 高度负值
   timer: any = null;
@@ -101,19 +103,28 @@ class Index extends Taro.Component<IProps> {
       });
     }, 100);
   };
+
+  touchstart = () => {
+    this.isTouching = true;
+  }
+
   /**
    * movable-view 滚动监听
    */
   change = (e) => {
-    let refreshStatus = this.state.refreshStatus,
-      diff = e.detail.y;
+    let refreshStatus = this.state.refreshStatus;
     if (refreshStatus >= 3) return;
-    this.setState({
-      refreshStatus: diff > -10 ? 2 : 1,
-    });
+    if (this.isTouching) {
+      this.diff = e.detail.y;
+      this.setState({
+        refreshStatus: this.diff > -10 ? 2 : 1,
+      });
+    }
   };
 
   itemClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     console.log(e);
   };
   /**
@@ -121,6 +132,7 @@ class Index extends Taro.Component<IProps> {
    */
   touchend = () => {
     const { refreshStatus } = this.state;
+    this.isTouching = false;
     if (refreshStatus >= 3) return;
     if (refreshStatus === 2) {
       Taro.vibrateShort();
@@ -132,7 +144,7 @@ class Index extends Taro.Component<IProps> {
       this.props.refresh();
     } else if (refreshStatus === 1) {
       this.setState({
-        move: this.scrollHeight1,
+        move: -50 + this.diff, // 动态值，触发渲染
       });
     }
   };
@@ -206,7 +218,7 @@ class Index extends Taro.Component<IProps> {
   };
 
   render() {
-    const {} = this;
+    const { } = this;
     const {
       hasTop,
       color,
@@ -234,7 +246,7 @@ class Index extends Taro.Component<IProps> {
           id="success"
           className={`success ${successShow ? "success--show" : ""} ${
             successTran ? "success--tran" : ""
-          }`}
+            }`}
           style={{ top: `${hasTop ? refreshSize : 0}rpx`, color: color }}
         >
           <View className="info">刷新成功</View>
@@ -244,10 +256,12 @@ class Index extends Taro.Component<IProps> {
             className="scroll"
             style={{ height: `calc(100vh + 40rpx + ${refreshSize}rpx)` }}
             onChange={this.change}
+            onVTouchMove={this.touchstart}
             onTouchEnd={this.touchend}
             direction="vertical"
             disabled={refreshStatus >= 3}
             y={move}
+            animation
           >
             <ScrollView
               className="scroll__view"
@@ -266,7 +280,7 @@ class Index extends Taro.Component<IProps> {
                 id="refresh"
                 className={`scroll__refresh ${
                   successShow ? "scroll__refresh--hidden" : ""
-                }`}
+                  }`}
                 style={{ height: `${refreshSize}rpx`, padding: "20rpx 0" }}
               >
                 <View className="scroll__loading">
@@ -314,24 +328,24 @@ class Index extends Taro.Component<IProps> {
                   {end ? (
                     <View className="scroll__loading">已全部加载</View>
                   ) : (
-                    <View className="scroll__loading">
-                      <View className="loading">
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
-                        <View className="loading__item"></View>
+                      <View className="scroll__loading">
+                        <View className="loading">
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                          <View className="loading__item"></View>
+                        </View>
+                        <View className="text">加载中...</View>
                       </View>
-                      <View className="text">加载中...</View>
-                    </View>
-                  )}
+                    )}
                 </View>
               ) : null}
             </ScrollView>

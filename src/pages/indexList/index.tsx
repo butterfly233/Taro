@@ -1,15 +1,17 @@
 import Taro from "@tarojs/taro";
 import { View, Image, Input } from "@tarojs/components";
 import IndexList from "@/components/indexList";
+import NavBar from "@/components/navbar";
 import { CityList } from "@/utils/city";
 import searchIcon from "@/assets/image/icon/search.png";
 import deleteIcon from "@/assets/image/icon/delete.png";
-import { observer } from "@tarojs/mobx";
+import { observer, inject } from "@tarojs/mobx";
 import { ColorUtil } from "@/utils/util";
 import "./index.less";
 
+@inject('globalStore')
 @observer
-class Index extends Taro.Component {
+class Index extends Taro.Component<any> {
   state = {
     listData: [],
     searchValue: "",
@@ -113,10 +115,12 @@ class Index extends Taro.Component {
   }
 
   render() {
+    const {navHeight} = this.props.globalStore;
     const { searchValue, emptyShow, topSize, listData, list } = this.state;
 
     return (
-      <View id="container">
+      <View id="container" style={{paddingTop:`${navHeight}px`}}>
+        <NavBar showBack={true} showSearch={false} title='城市索引' />
         <View className="search">
           <View className="hd">
             <Image src={searchIcon}></Image>

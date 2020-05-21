@@ -9,8 +9,9 @@ import {
   Image,
 } from "@tarojs/components";
 import Scroll from "@/components/scroll";
-import {testData} from "@/assets/common/data";
-import { observer } from "@tarojs/mobx";
+import NavBar from "@/components/navbar";
+import { testData } from "@/assets/common/data";
+import { observer, inject } from "@tarojs/mobx";
 
 import "./index.less";
 
@@ -32,8 +33,9 @@ type TState = {
   empty: boolean;
 };
 
+@inject('globalStore')
 @observer
-class Index extends Taro.Component {
+class Index extends Taro.Component<any> {
   state: TState = {
     isIphoneX: false,
     requesting: false,
@@ -58,7 +60,7 @@ class Index extends Taro.Component {
   };
 
   componentWillMount() {
-    console.log(this.$router)
+
     //判断机型(适配iphoneX)
     Taro.getSystemInfo().then((res) => {
       if (res.model.search("iPhone X") !== -1) {
@@ -160,6 +162,7 @@ class Index extends Taro.Component {
   };
 
   render() {
+    const { navHeight } = this.props.globalStore;
     const {
       isIphoneX,
       requesting,
@@ -175,43 +178,37 @@ class Index extends Taro.Component {
       color,
     } = this.state;
     return (
-      <View className="container">
-        {hasTop && (
-          <View
-            className="title"
-            style={{ lineHeight: `${refreshSize < 80 ? 80 : refreshSize}rpx` }}
+      <View className="container" style={{ paddingTop: `${navHeight}px` }}>
+        <NavBar showSearch={false} title='下拉刷新' showBack={true} />
+        <View className="list">
+          <Scroll
+            requesting={requesting}
+            emptyShow={emptyShow}
+            end={end}
+            listCount={listData.length}
+            hasTop={false}
+            enableBackToTop={enableBackToTop}
+            refreshSize={navHeight}
+            bottomSize={bottomSize}
+            color={color}
+            refresh={this.refresh}
+            more={this.more}
           >
-            标题
-          </View>
-        )}
-
-        <Scroll
-          requesting={requesting}
-          emptyShow={emptyShow}
-          end={end}
-          listCount={listData.length}
-          hasTop={hasTop}
-          enableBackToTop={enableBackToTop}
-          refreshSize={refreshSize}
-          bottomSize={bottomSize}
-          color={color}
-          refresh={this.refresh}
-          more={this.more}
-        >
-          <View className="cells">
-            {listData.map((item: any, index: number) => (
-              <View className="cell" key={index} onClick={this.itemClick}>
-                <View className="cell__hd">
-                  <Image mode="aspectFill" src={item.images} />
+            <View className="cells">
+              {listData.map((item: any, index: number) => (
+                <View className="cell" key={index} onClick={this.itemClick}>
+                  <View className="cell__hd">
+                    <Image mode="aspectFill" src={item.images} />
+                  </View>
+                  <View className="cell__bd">
+                    <View className="name">{item.title}</View>
+                    <View className="des">{item.description}</View>
+                  </View>
                 </View>
-                <View className="cell__bd">
-                  <View className="name">{item.title}</View>
-                  <View className="des">{item.description}</View>
-                </View>
-              </View>
-            ))}
-          </View>
-        </Scroll>
+              ))}
+            </View>
+          </Scroll>
+        </View>
         <View
           className={`control-panel ${isIphoneX ? "isX" : ""}`}
           style={{ height: `${bottomSize}rpx` }}
