@@ -10,10 +10,15 @@ import { calendar } from "@/utils/lunar";
 
 const now = new Date();
 const today = {
-  date: moment(new Date()).format("YYYY-MM-DD"),
+  date: moment().format("YYYY-MM-DD"),
   time: new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime(),
   text: "今天",
 };
+const tomorrow = {
+  date: moment().add(1, "days").format("YYYY-MM-DD"),
+  time: Date.parse(moment().add(1, "days").format("L")),
+  text: "明天",
+}
 const weekMap: string[] = ["日", "一", "二", "三", "四", "五", "六"];
 const monthsMap: string[] = [
   "1月",
@@ -31,44 +36,74 @@ const monthsMap: string[] = [
 ];
 
 interface IProps {
-  defaultDate?: string;
+  defaultDate?: string[] | string,
   formate?: string,
-  onDateClick?: Function;
+  type?: string,
+  minDate?: string, // 最小可选择日期
+  maxDate?: string, // 最大可选择日期
+  onDateClick?: Function,
 }
 
 class Index extends Taro.Component<IProps> {
   static defaultProps = {
     defaultDate: today.date,
     formate: 'YYYY-MM-DD',
+    type: 'date',
+    minDate: '',
+    maxDate: '',
     onDateClick: () => { }
   }
 
   state = {
-    date: "", // 当前日期
+    date: [today.date], // 当前日期
     listDate: [], // 当月所有天数
-    selectTime: 0, // 选中日期
+    selectTime: [today.time], // 选中日期
+    _minDate: NaN,
+    _maxDate: NaN,
   };
+
   componentWillMount() {
-    let { defaultDate = today.date } = this.props;
-    defaultDate = moment(defaultDate).format("YYYY-MM-DD"); // 修订defaultDate的格式
-    const date = new Date(defaultDate.replace(/-/g, "/"));
-    const selectTime = new Date(
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate()
-    ).getTime();
-    console.log(selectTime)
-    this.setState({ date: defaultDate, selectTime }, () => {
+    // 初始化处理用户传入的默认值
+    const { defaultDate, type, minDate = '', maxDate = '' } = this.props;
+    let selectTimes: number[] = [], dates: string[] = [];
+    // 日期范围：数组值处理
+    if (type === 'dateRange') {
+      if ((defaultDate as string[]).length) {
+        (defaultDate as string[]).forEach((item => {
+          (dates as string[]).push(moment(item).format("YYYY-MM-DD"));
+          (selectTimes as number[]).push(Date.parse(moment(item).format('L')));
+        })); // 修订defaultDate的格式
+      }
+      else {
+        dates = [today.date, tomorrow.date];
+        selectTimes = [today.time, tomorrow.time]
+      }
+    }
+    if (type === 'date') {
+      if (defaultDate) {
+        // 单选日期处理
+        dates.push(moment(defaultDate as string).format("YYYY-MM-DD")); // 修订defaultDate的格式
+        selectTimes.push(Date.parse(moment(defaultDate as string).format('L')));
+      }
+      else {
+        dates = [today.date];
+        selectTimes = [today.time]
+      }
+    }
+    const _minDate = minDate ? Date.parse(moment(minDate).format('L')) : NaN;
+    const _maxDate = maxDate ? Date.parse(moment(maxDate).format('L')) : NaN;
+    this.setState({ date: dates, selectTime: selectTimes, _minDate, _maxDate }, () => {
       this.getData();
     });
   }
 
   // 每个日历排版显示6行，共42天
   getData = () => {
+    const { _minDate, _maxDate } = this.state;
     const currentDate: any[] = [];
     // 获取date的month
-    const { date } = this.state;
-    const d = new Date(date.replace(/-/g, "/"));
+    const date: string[] = this.state.date;
+    const d = new Date(date[0].replace(/-/g, "/"));
     const y = d.getFullYear();
     const m = d.getMonth();
     const firstDayWeek = new Date(y, m, 1).getDay(); // 第一天的week
@@ -93,6 +128,7 @@ class Index extends Taro.Component<IProps> {
           lunar: lunarObj.IDayCn,
           currentMonth: !(tempIndex <= 0 || tempIndex > totalDay),
           isToday: time === today.time,
+          disabled: time < _minDate || time > _maxDate,
         });
       }
       currentDate.push(col);
@@ -101,24 +137,44 @@ class Index extends Taro.Component<IProps> {
   };
 
   changeDate = (num: number, type: any) => {
-    let { date } = this.state;
-    date = moment(date).add(num, type).format("YYYY-MM-DD");
+    let date: string[] = this.state.date;
+    date[0] = moment(date[0]).add(num, type).format("YYYY-MM-DD");
     this.setState({ date }, () => {
       this.getData();
     });
   };
 
-  clickDate = (e) => {
-    const { time } = e.currentTarget.dataset;
-    this.setState({ selectTime: time });
+  clickDate = (data: any) => {
+    const { time, date, disabled } = data;
+    if (disabled) return;
+    const { type, formate } = this.props;
+    let selectTime: number[] = this.state.selectTime;
+    // 日期单选
+    if (type === 'date') {
+      selectTime = [time];
+    }
+    else {  // 日历范围选择： 小的为开始日期，大的为结束日期
+      if (selectTime.length === 2) {
+        selectTime = [];
+        selectTime[0] = time;
+      }
+      else if (selectTime.length === 1) {
+        selectTime[1] = time > selectTime[0] ? time : selectTime[0]; // 先赋值selectTime[1],防止值被覆盖
+        selectTime[0] = time < selectTime[0] ? time : selectTime[0];
+      }
+    }
+    this.setState({ selectTime });
+    const dates = selectTime.map((item => moment(item).format(formate)))
     if (this.props.onDateClick) {
-      this.props.onDateClick(e)
+      this.props.onDateClick(type === 'date' ? date : dates);
     }
   };
 
   render() {
-    const { date, listDate, selectTime } = this.state;
-    const month = moment(date).format("YYYY-MM");
+    const { date, listDate } = this.state;
+    const selectTime: number[] = this.state.selectTime;
+    const month = moment(date[0]).format("YYYY-MM");
+
     return (
       <View className="container">
         <View className="control-panel">
@@ -158,11 +214,11 @@ class Index extends Taro.Component<IProps> {
                 <View
                   className={`item ${idate.currentMonth ? "" : "gray"} ${
                     idate.isToday ? "today" : ""
-                    } ${selectTime === idate.time ? "current" : ""}`}
+                    } ${idate.disabled ? "disabled" : ""}
+                    ${selectTime.includes(idate.time) ? "current" : ""}
+                    ${selectTime[1] && idate.time > selectTime[0] && idate.time < selectTime[1] ? 'between' : ''}`}
                   key={index}
-                  data-time={idate.time}
-                  data-date={idate.date}
-                  onClick={this.clickDate}
+                  onClick={this.clickDate.bind(this, idate)}
                 >
                   <Text className="date">{idate.day}</Text>
                   <Text className="lunar">{idate.lunar}</Text>

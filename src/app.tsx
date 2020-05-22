@@ -33,6 +33,7 @@ class App extends Component {
       'pages/swipAction/index',
       'pages/listCalendar/index',
       'pages/calendar/index',
+      'pages/modal/index',
     ],
     window: {
       backgroundTextStyle: 'light',

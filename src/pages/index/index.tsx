@@ -7,8 +7,10 @@ import TabIcon from "@/assets/image/main/drag.png";
 import slipIcon from "@/assets/image/main/side-slip.png";
 import calendar1Icon from "@/assets/image/main/date.png";
 import calendar2Icon from "@/assets/image/main/rili.png";
-import "./index.less";
+import modalIcon from "@/assets/image/main/modal.png";
 import { inject } from "@tarojs/mobx";
+import "./index.less";
+
 
 const UrlMap: any[] = [
   { name: "下拉刷新", "page": "/pages/scroll/index", icon: listIcon },
@@ -17,6 +19,7 @@ const UrlMap: any[] = [
   { name: "侧滑", "page": "/pages/swipAction/index", icon: slipIcon },
   { name: "列表日历", "page": "/pages/listCalendar/index", icon: calendar1Icon },
   { name: "横向日历", "page": "/pages/calendar/index", icon: calendar2Icon },
+  { name: "模态框", "page": "/pages/modal/index", icon: modalIcon },
 ]
 
 @inject('globalStore')

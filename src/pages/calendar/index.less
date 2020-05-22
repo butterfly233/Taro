@@ -9,20 +9,6 @@
   overflow: hidden;
 }
 
-.modal {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  width: 80%;
-  max-height: 750px;
-  border-radius: 10px;
-  z-index: 1000;
-  overflow: hidden;
-}
-
 .control-panel {
   position: fixed;
   top: 0;
@@ -43,4 +29,24 @@
     color: #ffffff;
     border-radius: 10px;
   }
+}
+
+.input-data {
+  padding: 0 20px;
+  height: 80px;
+  line-height: 80px;
+  color: #ffffff;
+  background: #bbbbbb;
+
+  &+.input-data {
+    margin-top: 20px;
+  }
+}
+
+.icon {
+  margin-top: -3px;
+  margin-right: 10px;
+  width: 32px;
+  height: 32px;
+  vertical-align: middle;
 }
