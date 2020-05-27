@@ -1,8 +1,8 @@
 {
   "miniprogramRoot": "./dist",
   "projectname": "myapp",
-  "description": "my component",
-  "appid": "wx6109142fc205e42e",
+  "description": "taro component",
+  "appid": "wx0383d901c40400f0",
   "setting": {
     "urlCheck": true,
     "es6": false,

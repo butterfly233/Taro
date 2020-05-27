@@ -1,0 +1,97 @@
+.img_wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #f8f8f8;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.spinner,
+.spinner--active {
+  height: 60px;
+  font-size: 10px;
+  transition: opacity linear .3s;
+
+  .rect {
+    display: inline-block;
+    margin: 0 5px;
+    height: 100%;
+    width: 6px;
+    background-color: #67CF22;
+    animation: stretchdelay 1.2s infinite ease-in-out;
+
+    &.rect2 {
+      animation-delay: -1.1s;
+    }
+
+    &.rect3 {
+      animation-delay: -1.0s;
+    }
+
+    &.rect4 {
+      animation-delay: -0.9s;
+    }
+
+    &.rect5 {
+      animation-delay: -0.8s;
+    }
+  }
+}
+
+.spinner {
+  opacity: 0;
+}
+
+.spinner--active {
+  opacity: 1;
+}
+
+.img,
+.img--active {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: opacity linear .3s;
+}
+
+.img {
+  opacity: 0;
+}
+
+.img--active {
+  opacity: 1;
+  transition: opacity linear .3s;
+}
+
+@-webkit-keyframes stretchdelay {
+
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+  }
+
+  20% {
+    transform: scaleY(1);
+  }
+}
+
+@keyframes stretchdelay {
+
+  0%,
+  40%,
+  100% {
+    transform: scaleY(0.4);
+  }
+
+  20% {
+    transform: scaleY(1.0);
+  }
+}

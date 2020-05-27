@@ -34,6 +34,7 @@ class App extends Component {
       'pages/listCalendar/index',
       'pages/calendar/index',
       'pages/modal/index',
+      'pages/asyncImage/index',
     ],
     window: {
       backgroundTextStyle: 'light',
