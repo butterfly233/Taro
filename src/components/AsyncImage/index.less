@@ -58,7 +58,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  transition: opacity linear .3s;
+  transition: opacity ease-in-out .3s;
 }
 
 .img {
@@ -67,7 +67,8 @@
 
 .img--active {
   opacity: 1;
-  transition: opacity linear .3s;
+  transition: opacity ease-in-out .3s;
+  transition-delay: .15s;
 }
 
 @-webkit-keyframes stretchdelay {
