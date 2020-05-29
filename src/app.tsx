@@ -35,6 +35,7 @@ class App extends Component {
       'pages/calendar/index',
       'pages/modal/index',
       'pages/asyncImage/index',
+      'pages/webvr/index',
     ],
     window: {
       backgroundTextStyle: 'light',

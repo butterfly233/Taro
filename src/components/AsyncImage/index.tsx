@@ -1,19 +1,21 @@
 import Taro from '@tarojs/taro';
 import { View, Image } from '@tarojs/components';
-import img_error from '@/assets/image/asyncImage/error.png';
+import img_error1 from '@/assets/image/asyncImage/error@1x.png';
+import img_error2 from '@/assets/image/asyncImage/error@2x.png';
+import img_error3 from '@/assets/image/asyncImage/error@75x.png';
 import './index.less';
 
 interface IProps {
   src: string,
-  width?: string,
-  height?: string,
+  width?: number,
+  height?: number,
 }
 
 class Index extends Taro.Component<IProps> {
   static defaultProps = {
     src: '',
-    width: '100%',
-    height: '100%',
+    width: 0,
+    height: 0,
   }
 
   state = {
@@ -21,6 +23,14 @@ class Index extends Taro.Component<IProps> {
     _loading: true,
     _width: '100%',
     _height: '100%',
+    _isError: false,
+  }
+
+  componentWillMount() {
+    const { width, height } = this.props;
+    const _width = width ? `${width}rpx` : '100%';
+    const _height = height ? `${height}rpx` : '100%';
+    this.setState({ _width, _height });
   }
 
   loaded = () => {
@@ -28,7 +38,16 @@ class Index extends Taro.Component<IProps> {
   }
 
   loadError = () => {
-    this.setState({ _loading: false, _src: img_error })
+    const { width = 0, height = 0 } = this.props;
+    const aspect = width / height;
+    let _src = img_error3;
+    if (aspect === 1) {
+      _src = img_error1;
+    }
+    else if (aspect === 2) {
+      _src = img_error2;
+    }
+    this.setState({ _loading: false, _src })
   }
 
   render() {
