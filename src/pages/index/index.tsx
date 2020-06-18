@@ -10,6 +10,7 @@ import calendar2Icon from "@/assets/image/main/rili.png";
 import modalIcon from "@/assets/image/main/modal.png";
 import imgIcon from "@/assets/image/main/img.png";
 import vrIcon from "@/assets/image/main/vr.png";
+import waterFallIcon from "@/assets/image/main/waterfall.png";
 import { inject } from "@tarojs/mobx";
 import "./index.less";
 
@@ -24,6 +25,7 @@ const UrlMap: any[] = [
   { name: "模态框", "page": "/pages/modal/index", icon: modalIcon },
   { name: "异步加载图片", "page": "/pages/asyncImage/index", icon: imgIcon },
   { name: "全景VR", "page": "/pages/webvr/index", icon: vrIcon },
+  // { name: "瀑布流布局", "page": "/pages/waterfall/index", icon: waterFallIcon },
 ]
 
 @inject('globalStore')

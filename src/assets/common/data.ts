@@ -8,6 +8,33 @@ import swipe7 from "@/assets/image/swipe/7.png";
 import swipe8 from "@/assets/image/swipe/8.png";
 import swipe9 from "@/assets/image/swipe/9.png";
 import swipe10 from "@/assets/image/swipe/10.png";
+import water_1 from "../image/waterfall/1.jpg";
+import water_2 from "../image/waterfall/2.jpg";
+import water_3 from "../image/waterfall/3.jpg";
+import water_4 from "../image/waterfall/4.jpg";
+import water_5 from "../image/waterfall/5.gif";
+import water_6 from "../image/waterfall/6.jpg";
+import water_7 from "../image/waterfall/7.jpg";
+import water_8 from "../image/waterfall/8.gif";
+import water_9 from "../image/waterfall/9.jpg";
+import water_10 from "../image/waterfall/10.jpg";
+import water_11 from "../image/waterfall/11.jpg";
+import water_12 from "../image/waterfall/12.jpg";
+import water_13 from "../image/waterfall/13.jpg";
+import water_14 from "../image/waterfall/14.jpg";
+import water_15 from "../image/waterfall/15.jpg";
+import water_16 from "../image/waterfall/16.jpg";
+import water_17 from "../image/waterfall/17.jpg";
+import water_18 from "../image/waterfall/18.jpg";
+import water_19 from "../image/waterfall/19.jpg";
+import water_20 from "../image/waterfall/20.gif";
+import water_21 from "../image/waterfall/21.jpg";
+import water_22 from "../image/waterfall/22.jpg";
+import water_23 from "../image/waterfall/23.jpg";
+import water_24 from "../image/waterfall/24.jpg";
+import water_25 from "../image/waterfall/25.jpg";
+import water_26 from "../image/waterfall/26.jpg";
+import water_27 from "../image/waterfall/27.jpg";
 
 export const testData = [
   {
@@ -83,6 +110,37 @@ export const testData = [
     images: swipe10,
   },
 ];
+
+
+export const waterFallTestData = [
+  {id: '1',title: "こんにちはカンチ。　こんばんわかな？これからカンチにお别れを言おうと思います。ちょっと悲しいけど、でも悲しいだけでもありません。いずれにしても、カンチと同じ季节に同じ道を歩けたことを、爱してやみません。", image: water_1},
+  {id: '2',title: "タイムマシンを作って过去に戻りたい　こんな病気でなかったら　恋だって出来るでしょうに　谁かにすがりつきたくてたまらないのです", image: water_2},
+  {id: '3',title: "花ならつぼみの私の人生　この青春の始まりを　悔いのないように大切にしたい", image: water_3},
+  {id: '4',title: "もう　あの日に帰りたいなんていいません　今の自分を认めて生きていきます", image: water_4},
+  {id: '5',title: "私…ほんとは怖いんだ。この学校辞めたら、その时点で、私の人生、何かが终わっちゃうような気がして。", image: water_5},
+  {id: '6',title: "胸に手を当てる。ドキドキ音がする。嬉しいな。私は生きている。", image: water_6},
+  {id: '7',title: "确かに，お前はロポットだ，てもなあ，お前が人间よりよたぞ人间らしい暖かい心まで，だから本気で人爱するんじゃか。", image: water_7},
+  {id: '8',title: "俺はロポットです。梨衣子を爱するためだけに作られた，ロポットです。梨衣子を爱することが辛いです。俺を壊してください。", image: water_8},
+  {id: '9',title: "知つてる人もいると思いますけど　あたしの病気は治りません　治疗法はないみたいです。", image: water_9},
+  {id: '10',title: "高校に行つて　大学に行つて　仕事をして　そんなふうに思い描いていた未来がゼロになつちやいました　生きていく道が见つからなくて　小さな希望の光も见えなくて　病気になつたせいで　あたしの人生は壊れてしまつたつて　何度も思いました　", image: water_10},
+  {id: '11',title: "この体のあたしが　あたしだつて　障害つていう重荷をしよつている私が今の私なんだつて　胸を张つて生きていこうと思いました　だから　养护学校に行くことは自分で决めました　みんなとは　生きる场所は违うけど　これから自分で选んだ道の中に　一歩一歩光を目つけたいから", image: water_11},
+  {id: '12',title: "そう笑つて言えるようになるまでに　あたしには　小なくとも　１リツトルの涙が必要でした　だからも私はこの学校を离れても　何かが终わつてしまうなんて绝对に思いません　みんな　今まで　亲切にしてくれて　ほんとにありがとう", image: water_12},
+  {id: '13',title: "仆たちは爱するために生まれました。", image: water_13},
+  {id: '14',title: "仆たちは苦しむために生まれたわけじゃありません。", image: water_14},
+  {id: '15',title: "无责任の大人が作った二十世纪は矛盾や欺瞒に満ちていたが、仆たちは苦しむために生まれたわけじゃありません。", image: water_15},
+  {id: '16',title: "时々心のない人に出合うと后ろから殴りたい冲动に駆られますが、仆たちは伤づけるために生まれたわけじゃありません。时々心のない人に出合うと不安定になり、息苦しくなりますが、仆たちは伤づけられるために生まれたわけじゃありません。", image: water_16},
+  {id: '17',title: "仆たちは时々もう一人の自分を作り上げます。それは苦しみや悲しみから逃れるためかもしれません。他人から见れば逃避かもしれません。", image: water_17},
+  {id: '18',title: "家の中に引きこもり、あるいは违う场所に逃げたくなるんです。もう一人の自分という友达と话し合うために、だからいかなる人も孤独になることはありません。", image: water_18},
+  {id: '19',title: "すべての人に必ずもう一人の自分という友达がいます。その友达を仆たちは悪いやつだと思うときがあります。", image: water_19},
+  {id: '20',title: "臆病で、残酷だったりするやつだって、でも真実が违う。臆病で残酷だったりするのは友达ではなく本当の自分です。", image: water_20},
+  {id: '21',title: "なぜなら友达は本当の自分を救うために存在するからです。", image: water_21},
+  {id: '22',title: "だからこそこのすばらしい友达と仆たちは别れなければいけません、そうしないと仆たちはいつまでももう一人の自分に甘えてばかりいるからです。", image: water_22},
+  {id: '23',title: "さて、それはいつなんでしょう。爱する人とめぐり合ったときです。寂しさも悲しみも苦しみももう一人の自分に代わって爱する人が享受してくれるからです。", image: water_23},
+  {id: '24',title: "さあ、爱する人を探しに行こう。仆たちは爱する人の前で一日のことを话し、笑い、泣いて、抱きしめ合い、キスして、セックスする。そして勇気をもらい、同时に与える。", image: water_24},
+  {id: '25',title: "高校に行つて　大学に行つて　仕事をして　そんなふうに思い描いていた未来がゼロになつちやいました　生きていく道が见つからなくて　小さな希望の光も见えなくて　病気になつたせいで　あたしの人生は壊れてしまつたつて　何度も思いました　", image: water_25},
+  {id: '26',title: "けど　けど　悲しいけど　これが现実です　どんなに泣いても病気から逃げられないし　过去に戻りたくても时间は戻せないし　だつたら　自分で今の自分を好きになつて　あげなくつちやつてそう思いました　だつて　この体になつてから　初めて気づいたことがたくさん有るから　そばにいてくれるだけで　家族つてありたいんだなあとが　さりげなく支えてくれる友达の手がすごく暖かかつたりとか　健康なことが　それだけで　すごく幸せなこととか　病気になつたからつて失うばつかりじやないませんでした　", image: water_26},
+  {id: '27',title: "そう笑つて言えるようになるまでに　あたしには　小なくとも　１リツトルの涙が必要でした　だからも私はこの学校を离れても　何かが终わつてしまうなんて绝对に思いません　みんな　今まで　亲切にしてくれて　ほんとにありがとう", image: water_27},
+]
 
 
 export function uuid (len = 8, radix = 16): string {

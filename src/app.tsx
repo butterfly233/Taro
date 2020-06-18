@@ -36,6 +36,9 @@ class App extends Component {
       'pages/modal/index',
       'pages/asyncImage/index',
       'pages/webvr/index',
+      // 'pages/waterfall/index',
+      'pages/service/help/index',
+      'pages/service/nearby/index',
     ],
     window: {
       backgroundTextStyle: 'light',
@@ -44,6 +47,11 @@ class App extends Component {
       navigationBarTextStyle: 'black',
       navigationStyle: 'custom',
       backgroundColor: '#fff',
+    },
+    permission: {
+      "scope.userLocation": {
+        "desc": "你的位置信息将用于小程序位置接口的效果展示"
+      }
     }
   }
 
