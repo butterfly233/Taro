@@ -25,7 +25,7 @@ const UrlMap: any[] = [
   { name: "模态框", "page": "/pages/modal/index", icon: modalIcon },
   { name: "异步加载图片", "page": "/pages/asyncImage/index", icon: imgIcon },
   { name: "全景VR", "page": "/pages/webvr/index", icon: vrIcon },
-  // { name: "瀑布流布局", "page": "/pages/waterfall/index", icon: waterFallIcon },
+  { name: "瀑布流布局", "page": "/pages/waterfall/index", icon: waterFallIcon },
 ]
 
 @inject('globalStore')
@@ -58,6 +58,12 @@ class Index extends Component<any> {
     Taro.navigateTo({ url });
   };
 
+  scanCode = () => {
+    Taro.scanCode({scanType: ['barCode', 'qrCode']}).then((res) => {
+      console.log(res)
+    })
+  }
+
   render() {
     const { navHeight } = this.props.globalStore;
     return (
@@ -67,6 +73,7 @@ class Index extends Component<any> {
           <Image src={item.icon} mode="aspectFit" className="img" />
           {item.name}
         </View>)}
+        <View onClick={this.scanCode.bind(this)}>扫一扫</View>
       </View>
     );
   }

@@ -36,9 +36,10 @@ class App extends Component {
       'pages/modal/index',
       'pages/asyncImage/index',
       'pages/webvr/index',
-      // 'pages/waterfall/index',
+      'pages/waterfall/index',
       'pages/service/help/index',
       'pages/service/nearby/index',
+      // 'pages/translate/index',
     ],
     window: {
       backgroundTextStyle: 'light',
